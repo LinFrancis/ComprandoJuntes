@@ -1,241 +1,65 @@
-
 # 🐷 Comprando Juntes
-## Sistema Comunitario de Coordinación de Compras de Alimentos
 
-Este proyecto es una herramienta digital diseñada para apoyar redes comunitarias que organizan **compras colectivas de alimentos directamente desde productores locales**.
+Plataforma de coordinación de compras colectivas · Red de alimentos de proximidad.
 
-El sistema permite que grupos de personas coordinen pedidos, compras, distribución y pagos de manera transparente.
+## Estructura
 
-El objetivo es simple:
+```
+comprandojuntes/
+├── app.py                        # Página principal
+├── pages/
+│   ├── 1_Participantes.py
+│   ├── 2_Productos.py
+│   ├── 3_Productores.py
+│   ├── 4_Rondas.py
+│   ├── 5_Pedidos.py
+│   ├── 6_Compras.py
+│   ├── 7_Distribucion.py
+│   ├── 8_Pagos.py
+│   └── 9_Reportes.py
+├── core/
+│   ├── db.py                     # Conexión Supabase
+│   ├── ui.py                     # Sistema de diseño compartido
+│   └── excel.py                  # Exportación Excel
+├── assets/
+│   └── pig.svg
+├── .streamlit/
+│   ├── config.toml               # Tema visual
+│   └── secrets.toml              # Credenciales (NO subir a git)
+├── schema.sql
+└── requirements.txt
+```
 
-**acercar a quienes producen alimentos con quienes los consumen, reduciendo intermediarios y fortaleciendo relaciones locales.**
+## Despliegue en Streamlit Cloud
 
----
+1. Sube el repositorio a GitHub (**sin** `.streamlit/secrets.toml`)
+2. En Streamlit Cloud → *Manage app* → *Secrets*, agrega:
 
-# Filosofía del sistema
+```toml
+[supabase]
+url = "https://tu-proyecto.supabase.co"
+key = "tu-clave-secreta"
+```
 
-Los sistemas vivos funcionan mejor cuando:
+3. Deploy 🚀
 
-- la información es clara
-- las responsabilidades son compartidas
-- las decisiones se toman con transparencia
+## Desarrollo local
 
-Este software no busca controlar la red.
+Crea `.streamlit/secrets.toml`:
 
-Busca **hacer visible lo que ya está ocurriendo**:
+```toml
+[supabase]
+url = "https://tu-proyecto.supabase.co"
+key = "tu-clave-secreta"
+```
 
-- personas organizándose
-- alimentos circulando
-- cooperación creciendo
+Luego:
 
-La plataforma permite observar esos flujos para facilitar la coordinación.
-
----
-
-# Principios de funcionamiento de la red
-
-Estos principios pueden adaptarse por cada comunidad.
-
-### 1. Cooperación
-La iniciativa se sostiene gracias al aporte voluntario de tiempo y energía de las personas.
-
-Las tareas pueden incluir:
-
-- búsqueda de productores
-- coordinación de pedidos
-- transporte
-- envasado
-- distribución
-- administración de pagos
-
-### 2. Transparencia
-Toda la información relevante debe quedar registrada en el sistema:
-
-- qué se pidió
-- qué se compró
-- cuánto costó
-- cuánto recibió cada persona
-- qué pagos se realizaron
-
-Esto permite confianza entre participantes.
-
-### 3. Consumo responsable
-Siempre que sea posible se prioriza:
-
-- producción local
-- alimentos sin agroquímicos
-- compra a granel
-- reducción de residuos
-
-### 4. Participación
-Las personas pueden participar en distintos roles según su disponibilidad.
-
-Nadie tiene que hacerlo todo.
-
-Pero todas las tareas son importantes.
-
----
-
-# Flujo de una ronda de compra
-
-Una ronda de compra sigue normalmente estas etapas:
-
-### 1 Apertura
-Se abre una ronda donde las personas pueden solicitar productos.
-
-### 2 Registro de pedidos
-Cada participante indica cuánto quiere comprar.
-
-### 3 Consolidación
-Se suman todos los pedidos para calcular el volumen total.
-
-### 4 Compra al productor
-Se registra la compra real realizada.
-
-### 5 Distribución
-Los productos se dividen entre quienes hicieron pedidos.
-
-### 6 Registro de pagos
-Cada participante registra el pago correspondiente.
-
-### 7 Cierre
-La ronda queda archivada como registro histórico.
-
----
-
-# Qué permite hacer la aplicación
-
-La aplicación incluye módulos para:
-
-• Participantes  
-• Productores  
-• Productos  
-• Rondas de compra  
-• Pedidos  
-• Compras  
-• Distribución  
-• Pagos  
-• Reportes descargables
-
----
-
-# Reportes
-
-En cualquier momento se puede generar un reporte Excel con:
-
-- participantes
-- pedidos
-- compras
-- pagos
-
-Esto permite compartir fácilmente el estado del sistema con el grupo.
-
----
-
-# Instalación
-
-## 1 Instalar Python
-
-Python 3.10 o superior.
-
-Verificar:
-
-python --version
-
----
-
-## 2 Instalar dependencias
-
+```bash
 pip install -r requirements.txt
-
----
-
-## 3 Crear proyecto en Supabase
-
-Ir a:
-
-https://supabase.com
-
-Crear un nuevo proyecto.
-
----
-
-## 4 Ejecutar el esquema SQL
-
-Copiar el contenido del archivo:
-
-schema.sql
-
-y ejecutarlo en el SQL Editor de Supabase.
-
----
-
-## 5 Crear archivo .env
-
-SUPABASE_URL=tu_url
-SUPABASE_KEY=tu_key
-
----
-
-## 6 Ejecutar aplicación
-
 streamlit run app.py
-
----
-
-# Estructura del proyecto
-
-```
-comprando_juntes_erp
-
-app.py
-schema.sql
-requirements.txt
-
-core/
-db.py
-excel.py
-
-pages/
-Participantes
-Productos
-Productores
-Rondas
-Pedidos
-Compras
-Distribucion
-Pagos
-Reportes
-
-assets/
-pig.svg
 ```
 
----
+## Base de datos
 
-# Uso recomendado en la comunidad
-
-Se recomienda que el grupo tenga al menos:
-
-• una persona que coordine rondas  
-• una persona que registre compras  
-• una persona que revise pagos  
-
-Las responsabilidades pueden rotar.
-
----
-
-# Evolución futura
-
-Este sistema puede evolucionar hacia:
-
-- cálculo automático de precios por persona
-- visualización del flujo de alimentos
-- integración con formularios públicos
-- métricas de impacto comunitario
-
----
-
-# Licencia
-
-Uso libre para comunidades.
+Ejecuta `schema.sql` en tu proyecto Supabase para crear las tablas.
